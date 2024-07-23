@@ -1,6 +1,9 @@
+import WebSocket from 'ws';
 import AdapterAbstract from "./adapter-abstract.js";
 
-export default class BrowserAdapter extends AdapterAbstract {
+
+console.log("NODE ADAPTER");
+export default class NodeAdapter extends AdapterAbstract {
     constructor(config) {
         super();
         this.config = config || {};
@@ -10,15 +13,20 @@ export default class BrowserAdapter extends AdapterAbstract {
     connect() {
         try {
             const ws = new WebSocket(this.url);
-            ws.onmessage = message => this.onMessage(message);
+            // ws.on('message', this.onMessage)
             this.nativeInstance = ws;
         } catch(error) {
 
         }
     }
     onMessage(message) {
-        if (typeof this.config.onMessage === "function") {
-            this.config.onMessage(message);
-        }
+        console.log("-----", message);
     }
+    on(...args) {
+        this.nativeInstance.on(...args)
+    }
+    emit(...args) {
+        this.nativeInstance.emit(...args);
+    }
+
 }

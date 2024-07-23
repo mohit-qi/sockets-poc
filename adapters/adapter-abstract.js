@@ -8,10 +8,15 @@ export default class AdapterAbstract {
     reconnect() {
         throw new Error("No method for connect written");
     }
-    onConnect() {
-        throw new Error("No method for connect written");
+    on(...args) {
+        this.nativeInstance.on(...args)
     }
-    onDisconnect() {
-        throw new Error("No method for connect written");
+    emit(...args) {
+        this.nativeInstance.emit(...args);
     }
 }
+
+// socket_io adapter
+// Worker thread
+// auth
+// integrate with other POCs

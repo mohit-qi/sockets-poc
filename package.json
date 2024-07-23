@@ -14,9 +14,11 @@
     "rollup": "^4.18.1"
   },
   "dependencies": {
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
     "ws": "^8.18.0"
   },
   "browser": {
-    "./adapters/raw-node.js": "./adapters/raw-web.js"
+    "./adapters/node-ws.js": "./adapters/raw-web.js"
   }
 }
