@@ -16,14 +16,19 @@ export default class BrowserAdapter extends AdapterAbstract {
 
         }
     }
-    onMessage(message) {
-        if (typeof this.config.onMessage === "function") {
-            this.config.onMessage(message);
-        }
-    }
     on(...args) {
         // this.nativeInstance.on(...args);
         if (args[0] === "message") {
+            this.nativeInstance.onmessage = (event) => {
+                try {
+                    let data = JSON.parse(event.data);
+                    args[1](data);
+                } catch (error) {
+                    args[1](event.data);
+                }
+            }
+        }
+        else if (args[0] === "connect") {
             this.nativeInstance.onmessage = (event) => {
                 try {
                     let data = JSON.parse(event.data);

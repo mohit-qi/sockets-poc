@@ -16,12 +16,6 @@ export default class SocketIoAdapter extends AdapterAbstract {
 
         }
     }
-    // on(...args) {
-    //     this.nativeInstance.on.call(this, ...args)
-    // }
-    // emit(...args) {
-    //     this.nativeInstance.emit(...args);
-    // }
 }
 
 // const socket = io("http://localhost:5002");

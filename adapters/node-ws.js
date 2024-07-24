@@ -2,7 +2,6 @@ import WebSocket from 'ws';
 import AdapterAbstract from "./adapter-abstract.js";
 
 
-console.log("NODE ADAPTER");
 export default class NodeAdapter extends AdapterAbstract {
     constructor(config) {
         super();
@@ -23,7 +22,19 @@ export default class NodeAdapter extends AdapterAbstract {
         console.log("-----", message);
     }
     on(...args) {
-        this.nativeInstance.on(...args)
+        // this.nativeInstance.on(...args);
+        if (args[0] === "message") {
+            this.nativeInstance.onmessage = (event) => {
+                try {
+                    let data = JSON.parse(event.data);
+                    args[1](data);
+                } catch (error) {
+                    args[1](event.data);
+                }
+            }
+            return;
+        }
+        args[1]();
     }
     emit(...args) {
         this.nativeInstance.emit(...args);

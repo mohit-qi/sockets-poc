@@ -19,6 +19,7 @@ export default class Adapter {
 
     static getAdapterByEnv() {
         const env = getEnv();
-        this.getAdapter(env);
+        console.log("env", env);
+        return this.getAdapter(env);
     }
 }
